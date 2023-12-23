@@ -19,12 +19,16 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  if (typeof value === 'string') {
+    return value.length;
+  }
+  return 0;
 }
 
 /**
  * Returns true if the value is a string, otherwise returns false.
+ * Возвращает true, если значение является строкой, в противном случае возвращает false.
  *
  * @param {string} value - The value to check if it's a string.
  * @return {boolean} - True if the value is a string, false otherwise.
@@ -37,8 +41,10 @@ function getStringLength(/* value */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  const isValueString = typeof value === 'string';
+  const isValueInstanceString = value instanceof String;
+  return isValueString || isValueInstanceString;
 }
 
 /**
@@ -53,8 +59,8 @@ function isString(/* value */) {
  *   concatenateStrings('aa', '') => 'aa'.
  *   concatenateStrings('', 'bb') => 'bb'
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1.concat(value2);
 }
 
 /**
@@ -68,12 +74,13 @@ function concatenateStrings(/* value1, value2 */) {
  *   getFirstChar('cat') => 'c'
  *   getFirstChar('') => ''
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.charAt(0);
 }
 
 /**
  * Removes leading and trailing whitespace characters from the string.
+ * Удаляет из строки ведущие и завершающие пробельные символы.
  *
  * @param {string} value - The input string to remove leading and trailing whitespaces from.
  * @return {string} - The string with leading and trailing whitespaces removed.
@@ -83,12 +90,13 @@ function getFirstChar(/* value */) {
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
  * Removes only leading whitespace characters from the string.
+ * Удаляет из строки только ведущие пробельные символы.
  *
  * @param {string} value - The input string to remove leading whitespaces from.
  * @return {string} - The string with leading whitespaces removed.
@@ -98,12 +106,13 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  return value.trimStart();
 }
 
 /**
  * Removes only trailing whitespace characters from the string.
+ * Удаляет из строки только пробельные символы, стоящие в конце.
  *
  * @param {string} value - The input string to remove trailing whitespaces from.
  * @return {string} - The string with trailing whitespaces removed.
@@ -113,12 +122,13 @@ function removeLeadingWhitespaces(/* value */) {
  *   removeTrailingWhitespaces('cat ') => 'cat'
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
-function removeTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeTrailingWhitespaces(value) {
+  return value.trimEnd();
 }
 
 /**
  * Returns a string that is repeated the specified number of times.
+ * Возвращает строку, которая повторяется указанное количество раз.
  *
  * @param {string} str - The string to repeat.
  * @param {number} times - The number of times to repeat the string.
@@ -130,12 +140,16 @@ function removeTrailingWhitespaces(/* value */) {
  *   repeatString('', 3) => ''
  *   repeatString('abc', -2) => ''
  */
-function repeatString(/* str, times */) {
-  throw new Error('Not implemented');
+function repeatString(str, times) {
+  if (times > 0) {
+    return str.repeat(times);
+  }
+  return 0;
 }
 
 /**
  * Remove the first occurrence of a substring from a string.
+ * Удалите из строки первое вхождение подстроки.
  *
  * @param {string} str - The input string.
  * @param {string} value - The substring to remove from the string.
@@ -146,8 +160,14 @@ function repeatString(/* str, times */) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const i = str.indexOf(value);
+  if (i === -1) {
+    return str;
+  }
+  const firstPart = str.substring(0, i);
+  const lastPart = str.substring(i + value.length);
+  return firstPart + lastPart;
 }
 
 /**
@@ -162,12 +182,19 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const i = str.lastIndexOf(value);
+  if (i === -1) {
+    return str;
+  }
+  const firstPart = str.substring(0, i);
+  const lastPart = str.substring(i + value.length);
+  return firstPart + lastPart;
 }
 
 /**
  * Calculate the sum of character codes of the given string.
+ * Вычислить сумму кодов символов заданной строки.
  *
  * @param {string} str - The input string.
  * @return {number} - The sum of character codes of the string.
@@ -178,12 +205,20 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  let sum = 0;
+  if (typeof str !== 'string') {
+    return 0;
+  }
+  for (let i = 0; i < str.length; i += 1) {
+    sum += str.charCodeAt(i);
+  }
+  return sum;
 }
 
 /**
  * Checks if a string starts with a specific substring.
+ * Проверяет, начинается ли строка с определенной подстроки.
  *
  * @param {string} str - The input string.
  * @param {string} substr - The substring to check.
@@ -193,8 +228,8 @@ function sumOfCodes(/* str */) {
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  return str.startsWith(substr);
 }
 
 /**
@@ -208,13 +243,13 @@ function startsWith(/* str, substr */) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
 /**
  * Returns a time string in the "mm:ss" format.
- *
+ * Возвращает строку времени в формате "мм:сс".
  * @param {number} minutes - The number of minutes (non-negative integer).
  * @param {number} seconds - The number of seconds (non-negative integer).
  * @return {string} - The time string in the "mm:ss" format.
@@ -225,12 +260,16 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  const formatMin = String(minutes).padStart(2, '0');
+  const formatSec = String(seconds).padStart(2, '0');
+  const divider = ':';
+  return formatMin.concat(divider, formatSec);
 }
 
 /**
  * Returns a string in reverse order.
+ * Возвращает строку в обратном порядке.
  *
  * @param {string} str - The input string.
  * @return {string} - The string in reverse order.
@@ -239,12 +278,13 @@ function formatTime(/* minutes, seconds */) {
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
  * Returns a string with characters in alphabetical order.
+ * Возвращает строку с символами в алфавитном порядке.
  *
  * @param {string} str - The input string.
  * @return {string} - The string in alphabetical order.
@@ -254,12 +294,13 @@ function reverseString(/* str */) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  return str.split('').sort().join('');
 }
 
 /**
  * Checks if a given string contains a specified substring.
+ * Проверяет, содержит ли заданная строка указанную подстроку.
  *
  * @param {string} str - The input string to search within.
  * @param {string} substring - The substring to check for in the input string.
@@ -270,12 +311,13 @@ function orderAlphabetically(/* str */) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return str.includes(substring);
 }
 
 /**
  * Returns the number of vowels in the string.
+ * Возвращает количество гласных в строке.
  * Vowels: 'a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'.
  *
  * @param {string} str - The input string.
@@ -288,12 +330,17 @@ function containsSubstring(/* str, substring */) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  const arrOfvowels = str.match(/[aeiouy]/gi);
+  if (arrOfvowels != null) {
+    return arrOfvowels.length;
+  }
+  return 0;
 }
 
 /**
  * Returns true if the string is a palindrome; otherwise false.
+ * Возвращает true, если строка является палиндромом; в противном случае false.
  * https://en.wikipedia.org/wiki/Palindrome
  *
  * @param {string} str - The input string.
@@ -305,13 +352,21 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  if (str.length > 1) {
+    const oneCase = str.toLowerCase();
+    const withoutChar = oneCase.replace(/[,\s!?]/g, '');
+    const strReverse = withoutChar.split('').reverse().join('');
+    return withoutChar === strReverse;
+  }
+  return true;
 }
 
 /**
  * Find the longest word in the sentence. If there are multiple longest words,
  * the function returns the first one encountered.
+ * Найдите самое длинное слово в предложении. Если длинных слов несколько,
+ * функция возвращает первое встретившееся.
  *
  * @param {string} sentence - The input sentence.
  * @returns {string} - The longest word in the sentence.
@@ -321,12 +376,20 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  const arrWords = sentence.split(' ');
+  let longest = '';
+  arrWords.forEach((i) => {
+    if (i.length > longest.length) {
+      longest = i;
+    }
+  });
+  return longest;
 }
 
 /**
  * Returns the string where each word is reversed.
+ * Возвращает строку, в которой каждое слово перевернуто.
  *
  * @param {string} str - The input string.
  * @return {string} - The string where each word is reversed.
@@ -335,12 +398,20 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  const arrWords = str.split(' ');
+  const arrReverse = [];
+  for (let i = 0; i < arrWords.length; i += 1) {
+    const arrWord = arrWords[i];
+    const arrWordReverse = arrWord.split('').reverse().join('');
+    arrReverse.push(arrWordReverse);
+  }
+  return arrReverse.join(' ');
 }
 
 /**
  * Inverts the case of each character in the given string.
+ * Инвертирует регистр каждого символа в заданной строке.
  *
  * @param {string} str - The input string.
  * @returns {string} - The string with the case of each character inverted.
@@ -350,12 +421,23 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  let invertStr = '';
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
+    if (char.toLowerCase() === char) {
+      invertStr += char.toUpperCase();
+    } else {
+      invertStr += char.toLowerCase();
+    }
+  }
+
+  return invertStr;
 }
 
 /**
  * Returns the result of string template and given parameters firstName and lastName.
+ * Возвращает результат шаблона строки и заданных параметров firstName и lastName.
  * Please do not use concatenation, use template string :
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
  *
@@ -367,8 +449,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -381,12 +463,13 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.slice(7, value.length - 1);
 }
 
 /**
  * Remove the first and last angle brackets from tag string
+ * Удалите первую и последнюю угловые скобки из строки тега
  *
  * @param {string} str - The input tag.
  * @return {string} - The tag without the first and last angle brackets.
@@ -396,13 +479,13 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 /**
  * Extracts e-mails from single string with e-mails list delimited by semicolons
- *
+ * Извлекает электронные письма из одной строки со списком писем, разделенных точками с запятой
  * @param {string} str - The input string.
  * @return {array} - The list of e-mails extracted from the string.
  *
@@ -415,8 +498,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -435,8 +518,22 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const ciper = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let encodeStr = '';
+
+  for (let i = 0; i < str.length; i += 1) {
+    const letter = str[i];
+    const iOfLetter = alphabet.indexOf(letter);
+
+    if (iOfLetter !== -1) {
+      encodeStr += ciper[iOfLetter];
+    } else {
+      encodeStr += letter;
+    }
+  }
+  return encodeStr;
 }
 
 /**
@@ -463,8 +560,62 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const playingCards = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  return playingCards.indexOf(value);
 }
 
 module.exports = {
